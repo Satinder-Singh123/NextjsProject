@@ -1,13 +1,15 @@
 "use client";
 
 
+import UserContext from "@/context/userContext";
 import { login } from "@/sevices/userService";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { toast } from "react-toastify";
 
 const Login = () => {
   const router = useRouter();
+  const context =useContext(UserContext)
   const [loginData, setLogin] = useState({
       email: "",
       password: "",
@@ -17,7 +19,7 @@ const Login = () => {
       event.preventDefault();
 
       // Validate user input
-      if (loginData.email.trim() === "" || loginData.password === "") {
+      if (loginData.email.trim() === "" || loginData.password.trim() === "") {
           toast.info("Invalid Data", {
               position: "top-center"
           });
@@ -25,30 +27,31 @@ const Login = () => {
       }
     try{
    const result= await login(loginData)
-   console.log(result)
+  //  console.log(result)
    toast.success("Logged in",{
     position:"top-center"
-  
-   })
+  })
+  context.setUser(result.user)
    router.push("/profile/user") 
 
     }catch(error){
-      toast.error(error in login,{
+      toast.error(error.response.data.message,{
         position:"top-center"
       })
     }
   }
   return (
+    <div className="bg-blue-400 min-h-screen">
     <div className="grid grid-cols-12 ">
       <div className="col-span-4 col-start-5 ">
         <div className="py-5">
-          <h1 className="text-center">Login Here</h1>
+          <h1 className="text-center mt-7 text-2xl font-semibold">Login Here</h1>
           <form action="#!" onSubmit={loginformSubmitted}>
             {/* email */}
             <div className="mt-3">
               <label
                 htmlFor="user_email"
-                className="block text-sm font-medium mb-2 ps-2"
+                className="block text-xl font-bold mb-2 ps-2"
               >
                 Email
               </label>
@@ -70,7 +73,7 @@ const Login = () => {
             <div className="mt-3">
               <label
                 htmlFor="user_password"
-                className="block text-sm font-medium mb-2 ps-2"
+                className="block text-xl font-bold mb-2 ps-2"
               >
                 Password
               </label>
@@ -88,7 +91,7 @@ const Login = () => {
                 placeholder="Enter Password"
               />
             </div>
-            <div className="mt-3 text-center ">
+            <div className="mt-7 text-center ">
               <button
                 type="submit"
                 className="px-2 py-2 bg-green-600 rounded hover:bg-green-300"
@@ -106,6 +109,7 @@ const Login = () => {
         </div>
       </div>
       {/* {JSON.stringify(login)} */}
+    </div>
     </div>
   );
 };

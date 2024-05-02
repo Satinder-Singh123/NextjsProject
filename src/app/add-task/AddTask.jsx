@@ -6,18 +6,17 @@ import Image from "next/image";
 import { toast } from "react-toastify";
 import { addTask } from "@/sevices/taskService";
 
-
 const Addtasks = () => {
   const [task, setTask] = useState({
     title: "",
-    content:"",
+    content: "",
     status: "none",
     userId: "662b49f9930a6566a35241dc",
   });
 
   const handleAddtask = async (event) => {
     event.preventDefault();
-    console.log(task);
+    // console.log(task);
 
     try {
       const result = await addTask(task);
@@ -38,7 +37,7 @@ const Addtasks = () => {
     }
   };
   return (
-    <div className="grid grid-cols-12 justify-center">
+    <div className="grid grid-cols-12 justify-center max-h-screen ">
       <div className="col-span-4 col-start-5  p-5  shadow-sm ">
         <div className="my-8 flex justify-center">
           {/* <Image
@@ -49,14 +48,14 @@ const Addtasks = () => {
             alt="login "
           /> */}
         </div>
-        <h1 className="text-3xl text-center">Add your task here</h1>
+        <h1 className="text-3xl text-center ">Add Your Task Here</h1>
 
         <form action="#!" onSubmit={handleAddtask}>
           {/* task title */}
           <div className="mt-4">
             <label
               htmlFor="task_title"
-              className="block text-sm font-medium mb-2"
+              className="block  font-semibold text-xl mb-2 "
             >
               Title
             </label>
@@ -70,7 +69,7 @@ const Addtasks = () => {
                 })
               }
               type="text"
-              className=" w-full p-3.5 rounded-md bg-gray-600 focus:ring-gray-200"
+              className=" w-full p-3.5 rounded-md  focus:ring-gray-200 border-2 border-black  text-black"
               id="task_title"
             />
           </div>
@@ -78,7 +77,7 @@ const Addtasks = () => {
           <div className="mt-4">
             <label
               htmlFor="task_content"
-              className="block text-sm font-medium mb-2"
+              className="block font-semibold text-xl mb-2"
             >
               Content
             </label>
@@ -92,16 +91,16 @@ const Addtasks = () => {
                 })
               }
               type="text"
-              className="w-full p-3.5 rounded-md bg-gray-600 focus:ring-gray-200"
+              className="w-full p-3.5 rounded-md  focus:ring-gray-200  border-2 border-black text-black"
               id="task_content"
               rows={3}
             />
           </div>
           {/* task status */}
-          <div className="mt-4">
+          <div className="mt-4 ">
             <label
               htmlFor="tast-status"
-              className="block text-sm font-medium mb-2"
+              className="block font-semibold text-xl mb-2"
             >
               Status
             </label>
@@ -115,13 +114,13 @@ const Addtasks = () => {
                 })
               }
               id="task_status"
-              className="w-full p-3.5 rounded-md bg-blue-400 focus:ring-gray-200"
+              className="w-full p-3.5 rounded-md bg-blue-500 focus:ring-gray-200 border-2 border-black "
             >
               <option value="none" disabled>
                 ---Select Status---
               </option>
-              <option value="Pending">Pending</option>
-              <option value="Completed">Completed</option>
+              <option value="pending">Pending</option>
+              <option value="completed">Completed</option>
             </select>
           </div>
           {/* button */}

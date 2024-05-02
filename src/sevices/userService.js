@@ -1,14 +1,11 @@
 import { httpaxios } from "@/helper/httpHelper";
 
 export async function signUp(user) {
-  try {
-    const response = await httpaxios.post("/api/users", user);
-    return response.data;
-  } catch (error) {
-    // Handle error appropriately, e.g., log it or throw a custom error
-    console.error("Error during sign up:", error);
-    throw error; // rethrow the error to be handled by the caller
-  }
+  const result = await httpaxios
+    .post("/api/users", user)
+    .then((response) => response.data);
+
+  return result;
 }
 export async function login(loginData) {
   const result = await httpaxios
@@ -23,3 +20,11 @@ export async function currentUser() {
     .then((response) => response.data);
   return result;
 }
+
+export async function logout() {
+  const result = await httpaxios
+    .post("/api/logout")
+    .then((response) => response.data);
+  return result;
+}
+

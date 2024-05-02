@@ -2,7 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import CustomeNavbar from "@/components/CustomNavbar";
 import Footer from "@/components/Footer";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import UserProvider from "@/context/userProvider";
 
@@ -18,12 +18,12 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <UserProvider>
-        <ToastContainer/>
-       <CustomeNavbar/>
-        {children}
-        <Footer/>
+          <ToastContainer />
+          <CustomeNavbar />
+          {children}
+          <Footer />
         </UserProvider>
-        </body>
+      </body>
     </html>
   );
 }

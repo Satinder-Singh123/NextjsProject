@@ -1,18 +1,13 @@
-import React from 'react';
-import { resolve } from 'styled-jsx/css';
+import React from "react";
 
-async function takeTime(){
-  await new Promise((resolve)=>{
-setTimeout(resolve, 3000)
-})
+async function takeTime() {
+  await new Promise((resolve) => {
+    setTimeout(resolve, 3000);
+  });
 }
-const About =async () => {
-await takeTime();
-  return (
-    <div>
-      This is about page
-    </div>
-  );
-}
+const About = async () => {
+  await takeTime();
+  return <div>This is about page</div>;
+};
 
 export default About;

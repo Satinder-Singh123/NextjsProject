@@ -5,7 +5,7 @@ export const metadata={
 }
 const LoginPage = () => {
   return (
-    <div>
+    <div className='bg-bule-400'>
       <Login/>
     </div>
   );

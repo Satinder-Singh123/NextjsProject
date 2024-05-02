@@ -1,14 +1,19 @@
-import { NextResponse } from "next/server"
+import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import { User } from "@/models/user";
-export async function GET(request){
- const authToken = request.cookies.get("authToken")?.value
-console.log(authToken)
+import { connectDb } from "@/helper/db";
 
-const data= jwt.verify(authToken, process.env.JWT_KEY)
-console.log(data)
+export async function GET(request) {
+  const authToken = request.cookies.get("authToken")?.value;
 
-const user=await User.findById(data._id)
-return NextResponse.json(user)
+  if (!authToken) {
+    return NextResponse.json({
+      message: "User is not logged !",
+    });
+  }
+  const data = jwt.verify(authToken, process.env.JWT_KEY);
+//   console.log(data);
+  await connectDb();
+  const user = await User.findById(data._id);
+  return NextResponse.json(user);
 }
-

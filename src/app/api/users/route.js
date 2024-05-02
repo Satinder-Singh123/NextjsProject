@@ -3,15 +3,15 @@ import { User } from "@/models/user";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 
-
 //get request funciton
 export async function GET(request) {
- await connectDb();
+  await connectDb();
   let users = [];
-console.log("this is user", users)
+
   try {
+    await connectDb();
     users = await User.find().select("-password");
-    console.log(users);
+    // console.log(users);
   } catch (error) {
     console.log(error);
     return NextResponse.json({
@@ -25,9 +25,9 @@ console.log("this is user", users)
 //post request function
 export async function POST(request) {
   //fetch user detail from request
-
+  await connectDb();
   const { name, email, password, about } = await request.json();
-  console.log({name, email, password, about});
+  // console.log({ name, email, password, about });
   const user = new User({
     name,
     email,
@@ -39,10 +39,12 @@ export async function POST(request) {
       user.password,
       parseInt(process.env.BCRYPT_SALT)
     );
-    console.log(user);
+    // console.log(user);
     //save the object through database
+    await connectDb();
+
     const createdUser = await user.save();
-    console.log(createdUser);
+    // console.log(createdUser);
     const response = NextResponse.json(user, {
       status: 201,
     });
